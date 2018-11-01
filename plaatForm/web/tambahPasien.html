@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <title>Family Hospital</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            /* Style the header */
+            header {
+                font-family:'Chicle', cursive;;
+                font-size: 30px; 
+                color: #ffffff;
+                /*background-color: #00aaff;*/
+                padding: 20px;
+                text-align: center;
+                background-image: url("hospital.jpg");
+                background-size: 25%;
+            }
+
+            /* Create two columns/boxes that floats next to each other */
+            nav {
+                float: left;
+                width: 30%;
+                height: 550px;
+                font-family: trebuchet ms;
+                background: #ffffff;
+                padding: 20px;
+                text-align: left;
+            }
+
+            article {
+                float: left;
+                padding: 20px;
+                width: 70%;
+                background-color: #3333ff;
+                height: 550px;                 
+                font-family: trebuchet ms;
+                background-image: url("daftar.jpg");
+                background-size: cover;
+            }
+
+            /* Clear floats after the columns */
+            section:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* Style the footer */
+            footer {
+                background-color: #2f2f2f;
+                padding: 10px;
+                text-align: center;
+                font-family:palatino; 
+                font-size: 20px; 
+                color: #ffffff;
+            }
+
+            /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+            @media (max-width: 600px) {
+                nav, article {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        </style>        
+    </head>
+    <body>
+        <header>
+            <h1><a href="index.html" style="text-decoration:none">
+                    <font color = "white">Family Hospital</font></a></h1>             
+            <p style="text-align: center; 
+               color: #ffffff; 
+               font-family: 'Chicle', cursive; 
+               font-size: 20px">
+                Jl. Laksda Adisucipto No.32-34, Demangan, Gondokusuman, Kota Yogyakarta
+                , Daerah Istimewa Yogyakarta 55221, Indonesia</p>
+
+            <div style="margin-right: 24%" class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="navbar-brand" href=index.html><font color = "white">
+                            Home</font></a></li>
+                    <li><a class="navbar-brand" href = tambahPasien.html><font color = "white">
+                            Tambah Pasien</font></a></li>
+                    <li><a class="navbar-brand" href=antri.html><font color = "white">
+                            Antrian</font></a></li>
+                    <li><a class="navbar-brand" href=location.html><font color = "white">
+                            Lokasi</font></a></li>
+                    <li><a class="navbar-brand" href=daftarDokter.html><font color = "white">
+                            Daftar Dokter</font></a></li>
+                    <li><a class="navbar-brand" href=daftarKlinik.html><font color = "white">
+                            Daftar Klinik</font></a></li>
+                </ul>
+            </div>
+        </header>
+
+        <section id="register" class="">            
+            <nav>
+                <h3 style=" text-align: center;"><b>Pendaftaran Pasien Baru</b></h3>
+                <p >Berikut ketentuan umum Pendaftaran
+                    Pasien Baru</p>
+                <div class="row tac">
+                    <div class="col-lg-12">
+                        <ol>
+                            <li>Pendaftaran ini hanya disediakan untuk pasien yang 
+                                belum terdaftar di Family Hospital</li>
+                            <li>Data diri yang diisikan harus benar, dan akurat</li>
+                            <li>Jika data diri tidak sesuai/tidak akurat, maka sang pendaftar harus 
+                                berani mempertanggung/menerima sanksi yang telah ditetapkan oleh rumah sakit</li>
+                            <li>Setelah mendaftar online, sang pendaftar harus datang ke rumah sakit untuk menkonfirmasi
+                                pendaftaran yang sudah dilakukan di website rumah sakit dengan membawa tanda pengenal</li>
+                            <li>Pendaftaran tidak dikenakan biaya apapun</li>
+                        </ol>
+                    </div>
+                </div>
+            </nav>
+
+            <article>
+                <h3 style="text-align: center;"><b>Data Diri Pasien</b></h3>
+                <form action="" id="registerForm" onsubmit="return make_json(this);" method="POST">
+                    <div class="container">
+
+                        <br><div class ="form-group">
+                            <label for="nik">NIK</label><br>
+                            <input type="text" placeholder="Enter NIK" id="nik" required/>
+                        </div><br>
+                        <div class ="form-group">
+                            <label for="nama">Nama</label><br>
+                            <input type="text" placeholder="Enter Nama" id="nama" required/>
+                        </div><br>
+                        <div class ="form-group">
+                            <label>Jenis Kelamin</label>
+                        </div>
+                        <div>
+                            <select name="kelamin">
+                                <option value="Laki-Laki">L</option>
+                                <option value="Perempuan">P</option>
+                            </select>
+                        </div><br>                        
+                        <div class ="form-group">
+                            <label for="tanggalLahir">Tanggal Lahir</label><br>
+                            <input type="date" placeholder="Enter Tanggal Lahir" id="tanggalLahir" required/>
+                        </div>
+                        <div class ="form-group">
+                            <label for="alamat">Alamat Tempat Tinggal</label><br>
+                            <input type="text" placeholder="Enter Alamat" id="alamat" required/>
+                        </div><br>
+
+                        <div class="clearfix">
+                            <button id="save" type="submit" class="signup">Daftar</button>
+                        </div><br><br>
+                    </div>
+                    <p id="output"></p>
+                </form>
+            </article>
+        </section>
+
+        <script>
+            function make_json(form) {
+                var json = {
+                    "noRm": form.nik.value,
+                    "nama": form.nama.value,
+                    "alamat": form.alamat.value,
+                    "nik": form.nik.value,
+                    "tanggalLahir": form.tanggalLahir.value,
+                    "kelamin": form.kelamin.value
+                };
+                var html = JSON.stringify(json, 0, 100);
+
+                var Url = "http://202.94.83.190:8080/165314024_SERVICE/webresources/pasien/addPasien";
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', Url, false);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.send(html);
+                document.getElementById("berhasil").innerHTML = "Pendaftaran Berhasil";
+                return false;
+            }
+        </script>
+        <footer>
+            <p><font size="3">Telp: (+62) 895628334758 | E-mail: hospitalfamily@gmail.com</font><br></p>
+        </footer>
+    </body>
+</html>
+
