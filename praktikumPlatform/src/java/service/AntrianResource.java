@@ -6,50 +6,48 @@
 package service;
 
 import com.google.gson.Gson;
-import helper.KlinikHelper;
+import helper.AntrianHelper;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import pojos.Klinik;
+import pojos.Antrian;
 
 /**
  * REST Web Service
  *
- * @author Windows
+ * @author clara
  */
-@Path("Klinik")
-public class KlinikResource {
+@Path("antrian")
+public class AntrianResource {
 
-    @Context
+   @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of KlinikResource
+     * Creates a new instance of AntrianResource
      */
-    public KlinikResource() {
+    public AntrianResource() {
     }
 
     /**
-     * Retrieves representation of an instance of service.KlinikResource
+     * Retrieves representation of an instance of services.AntrianResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
-        //TODO return proper representation object
-        KlinikHelper helper = new KlinikHelper();
-        List<Klinik> list = helper.getAllKlinik();
-        Gson gson = new Gson();
-        return Response.status(200)
-                .entity(gson.toJson(list))
+        AntrianHelper k = new AntrianHelper();
+        Gson g = new Gson();
+                return Response.status(Response.Status.OK)
+       .entity(g.toJson(k.getAllAntrian()))
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods",
                         "GET,POST,HEAD,OPTIONS,PUT")
@@ -59,31 +57,37 @@ public class KlinikResource {
                         "Access-Control-Allow-Origin,Access-Control-Allow-Credentials")
                 .header("Access-Support-Credentials",
                         "true")
-                .header("Access-Control-Max-Age", "2")
-                .header("Access-Preflight-Maxage", "2")
+                .header("Access-Control-Max-Age", "20")
+                .header("Access-Preflight-Maxage", "20")
                 .build();
     }
 
     /**
-     * PUT method for updating or creating an instance of KlinikResource
+     * PUT method for updating or creating an instance of AntrianResource
+     *
      * @param content representation for the resource
      */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
-    
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void putJson(String content) {
+//    }
     @POST
-    @Path("addKlinik")
+    @Path("addAntrian")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addNewKlinik(String data){
+    public Response addNewPasien(String data) {
         Gson gson = new Gson();
-        Klinik klinik = gson.fromJson(data, Klinik.class);
-        KlinikHelper helper = new KlinikHelper();
-        helper.addNewKlinik(klinik.getIdKlinik(), klinik.getNama(), klinik.getSpesialis());
+        Antrian antrian = gson.fromJson(data, Antrian.class);
+        AntrianHelper helper = new AntrianHelper();
+        helper.addNewAntrian(
+                antrian.getTanggal(),
+                antrian.getNoRm(),
+                antrian.getNama(),
+                antrian.getAlamat(),
+                antrian.getNamaKlinik()
+        );
         return Response
                 .status(200)
-                .entity(klinik)
+                .entity(antrian)
                 .build();
-    }
+}
 }

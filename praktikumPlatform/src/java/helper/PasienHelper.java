@@ -30,20 +30,35 @@ public class PasienHelper {
         result = q.list();
         session.close();
         return result;
-    }
+}
 
-    public void addNewPasien(
-            String noRm,
-            String nama,
-            String alamat,
-            String nik,
-            Date tanggalLahir,
-            String kelamin) {
+    public void addNewPasien(String noRm,String nama, 
+        String alamat,
+        String nik, 
+        Date tanggalLahir,
+        String kelamin) {
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
+        
         Transaction transaction = session.beginTransaction();
-        Pasien pasien = new Pasien(noRm, nama, alamat, nik, tanggalLahir, kelamin);
+        Pasien pasien = new Pasien(noRm,nama,alamat,noRm,tanggalLahir,kelamin);
         session.saveOrUpdate(pasien);
         transaction.commit();
         session.close();
+}
+
+    public Pasien cariUser(String noRm) {
+        Session session = RsKuHibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        String query = "from Pasien u where u.noRm=:noRm";
+        Query q = session.createQuery(query);
+        q.setParameter("noRm", noRm);
+        List<Pasien> list = q.list();
+        tx.commit();
+        session.close();
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
 }

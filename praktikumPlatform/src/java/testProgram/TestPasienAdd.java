@@ -24,7 +24,7 @@ public class TestPasienAdd {
             String tglLahir="19741231";
             Date date = format.parse(tglLahir);
             String noRm="654321";
-            String nama="Adi";
+            String nama="Cika";
             
             PasienHelper helper = new PasienHelper();
             String alamat ="paingan";

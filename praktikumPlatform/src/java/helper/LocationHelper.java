@@ -5,42 +5,37 @@
  */
 package helper;
 
-import java.util.Date;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import pojos.Klinik;
-import util.RsKuHibernateUtil;
-
 /**
  *
  * @author clara
  */
-public class KlinikHelper {
+import util.RsKuHibernateUtil;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import pojos.Location;
 
-    public KlinikHelper() {
+public class LocationHelper {
+
+    public LocationHelper() {
     }
-    
-    public List<Klinik> getAllKlinik() {
-        List<Klinik> result = null;
+
+    public List<Location> getLocation() {
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
-        String query = "from Klinik k";
+        String query = "from Location";
         Query q = session.createQuery(query);
-        result = q.list();
-        session.close();
-        return result;
+        List<Location> list = q.list();
+        return list;
     }
-    
-    public void addNewKlinik(
-            String idKlinik,
-            String nama,
-            String spesialis) {
+
+    public void addNewLocation(double lat, double lng, String name) {
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Klinik klinik = new Klinik(idKlinik, nama, spesialis);
-        session.saveOrUpdate(klinik);
+        Location location = new Location(lat, lng, name);
+        session.saveOrUpdate(location);
         transaction.commit();
         session.close();
     }
+
 }

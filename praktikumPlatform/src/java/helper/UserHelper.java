@@ -20,38 +20,14 @@ public class UserHelper {
     public UserHelper() {
     }
 
-    public User cariUser(String email) {
-        // create session
+    public User login(String email, String password) {
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
-        // create String query
-        String query = "from User u where u.email =:email";
-        Query q = session.createQuery(query);
-        q.setParameter("email", email);
-        // siapkan list, hasil pencarian dan panggil pencarinya
-        List<User> list = q.list();
-        //tutup session
-        session.close();
-        if (list.size() > 0) {
-            return list.get(0);
-        } else {
-            return null;
-        }
-    }
+        String q = "From User a where a.email=:email AND a.password =:password";
 
-    public boolean login(String email, String password) {
-        User user = this.cariUser(email);
-        if (user != null) {
-            //user ada
-            if (user.getPassword().equals(password)) {
-                // password sama
-                return true;
-            } else {
-                //password berbeda
-                return false;
-            }
-        } else {
-            // user tidak ada
-            return false;
-        }
+        Query query = session.createQuery(q);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+
+        return (User) query.uniqueResult();
     }
 }

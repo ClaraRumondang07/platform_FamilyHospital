@@ -4,40 +4,47 @@
  * and open the template in the editor.
  */
 package helper;
+
+import java.util.Date;
+import util.RsKuHibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pojos.Dokter;
-import util.RsKuHibernateUtil;
+import pojos.Antrian;
 
 /**
  *
  * @author clara
  */
-public class DokterHelper {
+public class AntrianHelper {
 
-    public DokterHelper() {
+    public AntrianHelper() {
+
     }
-    
-    public List<Dokter> getAllDokter() {
-        List<Dokter> result = null;
+
+  public List<Antrian> getAllAntrian() {
+        List<Antrian> result = null;
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
-        String query = "from Dokter d";
+        String query = "from Antrian p";
         Query q = session.createQuery(query);
         result = q.list();
         session.close();
         return result;
     }
     
-    public void addNewDokter(
-            String nama,
-            String spesialis) {
+    public void addNewAntrian(
+            Date tanggal,
+            String noRm, 
+            String nama, 
+            String alamat, 
+            String namaKlinik) {
         Session session = RsKuHibernateUtil.getSessionFactory().openSession();
+
         Transaction transaction = session.beginTransaction();
-        Dokter dokter = new Dokter(nama, spesialis);
-        session.saveOrUpdate(dokter);
+        Antrian antrian = new Antrian(tanggal, noRm, nama, alamat, namaKlinik);
+        session.saveOrUpdate(antrian);
         transaction.commit();
         session.close();
-    }
+}
 }

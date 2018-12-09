@@ -25,9 +25,9 @@ import pojos.User;
  *
  * @author basisa09
  */
-@Path("user")
+@Path("user/login")
 public class UserResource {
-    
+
     @Context
     private UriInfo context;
 
@@ -38,49 +38,25 @@ public class UserResource {
     }
 
     /**
-     * Retrieves representation of an instance of service.UserResource
+     * Retrieves representation of an instance of user.userresources
      *
+     * @param email
+     * @param password
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    public String getJson(@QueryParam("email") String email, @QueryParam("password") String password) {
+        return new Gson().toJson(new UserHelper().login(email, password));
     }
 
     /**
-     * PUT method for updating or creating an instance of UserResource
+     * PUT method for updating or creating an instance of userresources
      *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
-    }
-    
-    @GET
-    @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(
-            @QueryParam("email") String email,
-            @QueryParam("password") String password) {
-        UserHelper helper = new UserHelper();
-        boolean hasil = helper.login(email, password);
-        Gson gson = new Gson();
-        
-        return Response.status(200)
-                .entity(gson.toJson(hasil))
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods",
-                        "GET,POST,HEAD,OPTIONS,PUT")
-                .header("Access-Control-Allow-Headers",
-                        "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers")
-                .header("Access-Exposed-Headers",
-                        "Access-Control-Allow-Origin,Access-Control-Allow-Credentials")
-                .header("Access-Support-Credentials",
-                        "true")
-                .header("Access-Preflight-Maxage", "2000")
-                .build();
     }
 }
